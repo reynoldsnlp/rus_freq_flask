@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='freq.css') }}>
+</head>
+<body>
+<table id="f">
+	<tr>
+		<th>Lemma</th>
+		<th>Frequency (per million)</th>
+	</tr>
+	{{ table|safe }}
+</table>
+</body>
+</html>
+

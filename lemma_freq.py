@@ -1,9 +1,11 @@
 """Flask webapp to sort Russian words by frequency."""
 from collections import defaultdict as dd
+import sys
 
 from flask import Flask
 from flask import request
 from flask import render_template
+# from flask import url_for
 
 app = Flask(__name__)
 application = app  # our hosting requires `application` in passenger_wsgi
@@ -40,7 +42,7 @@ class Sharoff_lem_freq:
                     self.ambig_freq[lemma] = [(freq, rank, pos)]
             print('WARNING: the following lemma names are ambiguous. Using '
                   'the ambig_freq dictionary is highly recommended:',
-                  list(sorted(set(ambigs))))
+                  list(sorted(set(ambigs))), file=sys.stderr)
 
 
 lem = Sharoff_lem_freq()  # lem.freq is a dict: lem.freq[<lemma>]
@@ -55,12 +57,12 @@ def freq_form():
 @app.route('/', methods=['POST'])
 def freq_form_post():
     """POST script."""
-    wordlist = [(w, str(lem.freq[w])) for w in request.form['text'].split()]
-    html = '<table><tr><th>Lemma</th><th>Frequency (per million)</th></tr>' + \
-           ''.join(['<tr><td>{}</td><td>{}</td></tr>'.format(w, f)
+    wordlist = [(w.lower(), str(lem.freq[w.lower()]))
+                for w in request.form['text'].split()]
+    html = ''.join(['<tr><td>{}</td><td>{}</td></tr>'.format(w, f)
                     for w, f in
                     sorted(wordlist, key=lambda x: x[1], reverse=True)])
-    return html
+    return render_template('freq_output.html', table=html)
 
 
 if __name__ == "__main__":
