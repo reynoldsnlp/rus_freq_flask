@@ -55,7 +55,10 @@ def freq_form():
 @app.route('/', methods=['POST'])
 def freq_form_post():
     """POST script."""
-    return '\n'.join([w + '\t' + str(lem.freq[w]) for w in request.form['text'].split()])  # noqa
+    wordlist = [(w, lem.freq[w]) for w in request.form['text'].split()]
+    return '<br>'.join(['\t'.join(pair) for pair in sorted(wordlist,
+                                                           key=lambda x: x[1],
+                                                           reverse=True)])
 
 
 if __name__ == "__main__":
