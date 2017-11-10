@@ -3,8 +3,9 @@
 <body>
     <h1>Russian word frequency sorter</h1>
     <p>Enter a list of words to sort and label. Output can be copied to a spreadsheet.</p>
+	<p>Lemma frequencies are taken from <a href="http://www.artint.ru/projects/frqlist/frqlist-en.php">Serge Sharoff's list</a>.</p>
     <form method="POST">
-        <textarea rows="30" cols="50" name="text">Paste wordlist here</textarea>
+		<textarea rows="30" cols="50" name="text" placeholder="Paste wordlist here"></textarea>
         <input type="submit" name="freq_form" value="Sort">
     </form>
 </body>

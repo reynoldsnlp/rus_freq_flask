@@ -55,10 +55,12 @@ def freq_form():
 @app.route('/', methods=['POST'])
 def freq_form_post():
     """POST script."""
-    wordlist = [(w, lem.freq[w]) for w in request.form['text'].split()]
-    return '<br>'.join(['\t'.join(pair) for pair in sorted(wordlist,
-                                                           key=lambda x: x[1],
-                                                           reverse=True)])
+    wordlist = [(w, str(lem.freq[w])) for w in request.form['text'].split()]
+    html = '<table><tr><th>Lemma</th><th>Frequency (per million)</th></tr>' + \
+           ''.join(['<tr><td>{}</td><td>{}</td></tr>'.format(w, f)
+                    for w, f in
+                    sorted(wordlist, key=lambda x: x[1], reverse=True)])
+    return html
 
 
 if __name__ == "__main__":
