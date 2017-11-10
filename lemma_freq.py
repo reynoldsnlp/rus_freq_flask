@@ -61,7 +61,7 @@ def freq_form_post():
                 for w in request.form['text'].split()]
     html = ''.join(['<tr><td>{}</td><td>{}</td></tr>'.format(w, f)
                     for w, f in
-                    sorted(wordlist, key=lambda x: x[1], reverse=True)])
+                    sorted(wordlist, key=lambda x: float(x[1]), reverse=True)])
     return render_template('freq_output.html', table=html)
 
 
