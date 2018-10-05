@@ -2,15 +2,15 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='freq.css') }}>
+	<script src="{{ url_for('static', filename='w3.js')  }}"></script>
 </head>
 <body>
 <table id="f">
 	<tr>
-		<th>Lemma</th>
-		<th>Frequency (per million)</th>
+		<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(1)')">Lemma &#x21D5;</th>
+		<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(2)')">Frequency (per million) &#x21D5;</th>
 	</tr>
 	{{ table|safe }}
 </table>
 </body>
 </html>
-

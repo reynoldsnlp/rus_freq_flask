@@ -27,13 +27,13 @@ class Sharoff_lem_freq:
         self.freq = dd(absent)
         self.freq_w_rank_and_pos = dd(absent)
         self.ambig_freq = dd(absent)
-        ambigs = []
+        self.ambigs = []
         with open(path) as freq_file:
             for line in freq_file:
                 rank, freq, lemma, pos = line.split()
                 freq = float(freq)
                 if lemma in self.freq:
-                    ambigs.append(lemma)
+                    self.ambigs.append(lemma)
                 self.freq[lemma] = freq
                 self.freq_w_rank_and_pos[lemma] = (freq, rank, pos)
                 try:
@@ -42,27 +42,31 @@ class Sharoff_lem_freq:
                     self.ambig_freq[lemma] = [(freq, rank, pos)]
             print('WARNING: the following lemma names are ambiguous. Using '
                   'the ambig_freq dictionary is highly recommended:',
-                  list(sorted(set(ambigs))), file=sys.stderr)
+                  list(sorted(set(self.ambigs))), file=sys.stderr)
 
 
 lem = Sharoff_lem_freq()  # lem.freq is a dict: lem.freq[<lemma>]
 
 
-@app.route('/')  # passenger sets '/' to be the path registered in cPanel
-def freq_form():
-    """Start page."""
-    return render_template("freq_form.html")
+# @app.route('/')
+# def freq_form():
+#     """Start page."""
+#     return render_template("freq_form.html")
 
-
-@app.route('/', methods=['POST'])
+# passenger sets '/' to be the path registered in cPanel
+@app.route('/', methods=['GET', 'POST'])
 def freq_form_post():
-    """POST script."""
-    wordlist = [(w.lower(), str(lem.freq[w.lower()]))
-                for w in request.form['text'].split()]
-    html = ''.join(['<tr><td>{}</td><td>{}</td></tr>'.format(w, f)
-                    for w, f in
-                    sorted(wordlist, key=lambda x: float(x[1]), reverse=True)])
-    return render_template('freq_output.html', table=html)
+    """Build Russian frequency sorter page."""
+    if request.method == 'GET':
+        return render_template("freq_form.html")
+    elif request.method == 'POST':
+        wordlist = [(w.lower(), str(lem.freq[w.lower().replace('\u0301', '')]))
+                    for w in request.form['text'].split()]
+        html = ''.join(['<tr class="item"><td>{}</td><td>{}</td></tr>'.format(w, f)
+                        for w, f in
+                        sorted(wordlist, key=lambda x: float(x[1]),
+                               reverse=True)])
+        return render_template('freq_output.html', table=html)
 
 
 if __name__ == "__main__":
