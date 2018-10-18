@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='freq.css') }}>
-	<script src="{{ url_for('static', filename='w3.js')  }}"></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/main.css') }}>
 </head>
 <body>
-<table id="f">
-	<tr>
-		<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(1)')">Lemma &#x21D5;</th>
-		<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(2)')">Frequency (per million) &#x21D5;</th>
-	</tr>
-	{{ table|safe }}
-</table>
+	<!-- Header -->
+	<header id="header">
+			<div class="inner">
+				<a href="index.html" class="logo">Robert Reynolds</a>
+				<nav id="nav">
+					<a href="index.html">Home</a>
+					<a href="generic.html">Language Support</a>
+					<a href="elements.html">Contact</a>
+				</nav>
+				<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+			</div>
+		</header>
+
+	<!-- Banner -->
+		<section id="banner">
+			<h1>The word frequency sorter</h1>
+		</section>
+
+		<!-- Display the word frequency results.-->
+		<section id="one">
+				<div class="inner">
+					<div class="flex flex-3">
+						<article>
+							<header>
+								<h3>Russian Language Results</h3>
+							</header>
+							<p>The output can be copied to a spreadsheet.</p>
+							<table id="f">
+									<tr>
+										<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(1)')">Lemma &#x21D5;</th>
+										<th onclick="w3.sortHTML('#f','.item', 'td:nth-child(2)')">Frequency (per million) &#x21D5;</th>
+									</tr>
+									{{ table|safe }}
+								</table>
+							<footer>
+								<p>Lemma frequencies are taken from <a href="http://www.artint.ru/projects/frqlist/frqlist-en.php">Serge Sharoff's list</a>.</p>
+							</footer>
+						</article>
+						</div>
+						</div>
 </body>
+
+<footer id="footer">
+		<div class="inner">
+			<div class="flex">
+				<ul class="icons">
+					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+					<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+					<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+<!-- Script for building and displaying the sorted words. -->
+<script src="{{ url_for('static', filename='w3.js')  }}"></script>
+
+<!-- Css Scripts -->
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/skel.min.js"></script>
+<script src="static/js/util.js"></script>
+<script src="static/js/main.js"></script>
+
 </html>

@@ -5,7 +5,7 @@ import sys
 from flask import Flask
 from flask import request
 from flask import render_template
-# from flask import url_for
+from flask import url_for
 
 app = Flask(__name__)
 application = app  # our hosting requires `application` in passenger_wsgi
@@ -68,6 +68,9 @@ def freq_form_post():
                                reverse=True)])
         return render_template('freq_output.html', table=html)
 
+@app.route('/freq_form', methods=['GET', 'POST'])
+def route_home():
+    return render_template('freq_form.html')
 
 if __name__ == "__main__":
     app.debug = True
