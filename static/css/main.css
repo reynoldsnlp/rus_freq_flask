@@ -3062,7 +3062,7 @@
 
 	}
 
-	/* Sorted words display */
+	/* Sorted Words Style */
 
     #f {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -3080,6 +3080,6 @@
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
-        background-color: #4CAF50;
+        background-color: #0057b8;
         color: white;
     }

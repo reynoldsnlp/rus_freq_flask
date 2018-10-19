@@ -68,10 +68,6 @@ def freq_form_post():
                                reverse=True)])
         return render_template('freq_output.html', table=html)
 
-@app.route('/freq_form', methods=['GET', 'POST'])
-def route_home():
-    return render_template('freq_form.html')
-
 if __name__ == "__main__":
     app.debug = True
     app.run()
